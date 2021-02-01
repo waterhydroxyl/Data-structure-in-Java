@@ -1,5 +1,8 @@
 package com.waterhydroxyl.linkedlist;
 
+import java.util.List;
+import java.util.Stack;
+
 public class SingleLinkedListDemo {
     public static void main(String[] args) {
         HeroNode hero1 = new HeroNode(1, "宋江", "及时雨");
@@ -33,9 +36,30 @@ public class SingleLinkedListDemo {
         System.out.println(getLength(singleLinkedList.getHead()));
         System.out.println("查找到的是：");
         System.out.println(findLsatIndex(singleLinkedList.getHead(), 0));
+        System.out.println("反转链表：");
+
         reversetList(singleLinkedList.getHead());
         singleLinkedList.list();
+        System.out.println("逆序输出：");
+        reversPrint(singleLinkedList.getHead());
+
     }
+    public static void reversPrint(HeroNode head) {
+        if (head.next == null) {
+            System.out.println("链表空，无法打印");
+            return;
+        }
+        Stack<HeroNode>  listStack = new Stack<>();
+        HeroNode cur = head.next;
+        while (cur != null){
+            listStack.add(cur);
+            cur = cur.next;
+        }
+        while (!listStack.isEmpty()) {
+            System.out.println(listStack.pop());
+        }
+    }
+
     public  static void reversetList(HeroNode head) {
         HeroNode cur = head.next;
         HeroNode next;
