@@ -3,13 +3,40 @@ package com.waterhydroxyl.linkedlist;
 public class Josepfu {
     public static void main(String[] args) {
         CircleSingleLinkedList circleSingleLinkedList = new CircleSingleLinkedList();
-        circleSingleLinkedList.addBoy(7);
+        circleSingleLinkedList.addBoy(5);
         circleSingleLinkedList.showBoys();
+        System.out.println("出圈顺序为");
+        circleSingleLinkedList.countBoy(1, 2, 5);
     }
 }
 
 class CircleSingleLinkedList {
     private Boy first = new Boy(-1);
+
+    public void countBoy(int startNo, int countNum, int nums) {
+        if (first == null || startNo < 1 || countNum > nums) {
+            return;
+        }
+        Boy helper = first;
+
+        for (int i = 0; i < startNo - 1; i++) {
+            first = first.getNext();
+        }
+        do {
+            helper = helper.getNext();
+        } while (helper.getNext() != first);
+        while (first != helper) {
+            for (int i = 0; i < countNum - 1; i++) {
+                first = first.getNext();
+                helper = helper.getNext();
+            }
+            System.out.printf("出圈，序号为%d\n", first.getNo());
+            first = first.getNext();
+            helper.setNext(first);
+        }
+        System.out.printf("出圈，序号为%d\n", first.getNo());
+
+    }
 
     public void addBoy(int nums) {
         if (nums < 1) {
@@ -62,9 +89,7 @@ class Boy {
         return next;
     }
 
-    public void setNo(int no) {
-        this.no = no;
-    }
+
 
     public void setNext(Boy next) {
         this.next = next;
